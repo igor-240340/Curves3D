@@ -1,7 +1,7 @@
 # Curves3D
 
 ## About
-This is the test assignment on some curves in R3: circle/ellipse/helix.
+This is test assignment on some curves in R3: circle/ellipse/helix.
 
 ![](docs/img/helix.png)
 ![](docs/img/ellipse.png)
