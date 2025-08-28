@@ -6,7 +6,7 @@
 
 #include "Curves.h"
 
-constexpr float epsilon = 1e-06;
+constexpr float epsilon = 1e-06f;
 
 class TestCircle {
 public:

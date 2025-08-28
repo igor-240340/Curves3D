@@ -18,11 +18,18 @@ public:
 	float len() const { return std::sqrt(x * x + y * y + z * z); };
 };
 
+enum class CurveType {
+	Circle,
+	Ellipse,
+	Helix
+};
+
 class Curve {
 public:
 	virtual Vec3f get_point(float t) const = 0;
 	virtual Vec3f get_tan_vec(float t) const = 0;
 	virtual ~Curve() = default;
+	virtual std::string type_name() const = 0;
 };
 
 class Circle : public Curve {
@@ -44,6 +51,14 @@ public:
 		float y = std::cos(t) * r;
 		return Vec3f{ x, y, 0.0f };
 	};
+
+	std::string type_name() const override { return "Circle"; };
+
+public:
+	float radius() const { return r; }
+	static bool comparator(const std::shared_ptr<Circle>& a, const std::shared_ptr<Circle>& b) {
+		return a->radius() < b->radius();
+	}
 
 private:
 	const float r;
@@ -71,6 +86,8 @@ public:
 		return Vec3f{ x, y, 0.0f };
 	};
 
+	std::string type_name() const override { return "Ellipse"; };
+
 private:
 	const float a;
 	const float b;
@@ -79,7 +96,7 @@ private:
 class Helix : public Curve {
 public:
 	Helix() = delete;
-	explicit Helix(float r, float step) : r(r), step(step), z_slope(step / (2 * std::numbers::pi)) {
+	explicit Helix(float r, float step) : r(r), step(step), z_slope(step / (2 * std::numbers::pi_v<float>)) {
 		if (r <= 0.0f)
 			throw std::invalid_argument("Helix radius must be positive.");
 
@@ -99,6 +116,8 @@ public:
 		float y = std::cos(t) * r;
 		return Vec3f{ x, y, z_slope };
 	};
+
+	std::string type_name() const override { return "Helix"; };
 
 private:
 	const float r;
