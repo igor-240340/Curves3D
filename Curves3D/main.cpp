@@ -22,14 +22,20 @@ int main() {
 	Test::run_all();
 #endif
 
-	std::vector<std::shared_ptr<Curve>> curves = populate_curves(10);
-	print_points_and_tans(curves);
-	std::vector<std::shared_ptr<Circle>> circles = populate_circles(curves);
-	sort_circles(circles);
-	float total_radius = comp_total_radius(circles);
-	std::cout << "\nTotal sum of radii: " << total_radius << '\n';
+	try {
+		std::vector<std::shared_ptr<Curve>> curves = populate_curves(10);
+		print_points_and_tans(curves);
+		std::vector<std::shared_ptr<Circle>> circles = populate_circles(curves);
+		sort_circles(circles);
+		float total_radius = comp_total_radius(circles);
+		std::cout << "\nTotal sum of radii: " << total_radius << '\n';
 
-	return 0;
+		return 0;
+	}
+	catch (const std::exception& e) {
+		std::cout << e.what() << '\n';
+		return 1;
+	}
 }
 
 std::vector<std::shared_ptr<Curve>> populate_curves(int curves_count) {
