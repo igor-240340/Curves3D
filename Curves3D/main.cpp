@@ -39,6 +39,12 @@ int main() {
 }
 
 std::vector<std::shared_ptr<Curve>> populate_curves(int curves_count) {
+	enum class CurveType {
+		Circle,
+		Ellipse,
+		Helix
+	};
+
 	std::random_device rd;
 	std::mt19937 gen{ rd() };
 	std::uniform_int_distribution<int> curve_type_dist(0, 2);
